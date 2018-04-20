@@ -28,58 +28,95 @@
        	<table>
 	         <tr>    
 	          <td>Nama :</td>    
-	          <td><form:input path="nama" maxlength="255"  disabled="true"/></td>  
+	          <td><form:label path="nama" maxlength="255"  disabled="true"/> <c:out value="${pengundiForm.nama}"></c:out></td>  
 	         </tr>   
 	         <tr>    
 	          <td>Jantina :</td>    
-	          <td><form:input path="jantina" maxlength="1"  disabled="true"/></td>  
+	          <td><form:label path="jantina" maxlength="1"  disabled="true"/><c:out value="${pengundiForm.jantina}"></c:out></td>  
 	         </tr>
 	         <tr>    
 	          <td>DM :</td>    
-	          <td><form:input path="dm" maxlength="100"  disabled="true"/></td>  
+	          <td><form:label path="dm" maxlength="100"  disabled="true"/><c:out value="${pengundiForm.dm}"></c:out></td>  
 	         </tr> 
 	         <tr>    
 	          <td>Kod Lokaliti :</td>    
-	          <td><form:input path="kod_lokaliti" maxlength="255"  disabled="true"/></td>  
+	          <td><form:label path="kod_lokaliti" maxlength="255"  disabled="true"/><c:out value="${pengundiForm.kod_lokaliti}"></c:out></td>  
 	         </tr> 
 	         <tr>    
 	          <td>Lokaliti :</td>    
-	          <td><form:input path="lokaliti" maxlength="500"  disabled="true"/></td>  
+	          <td><form:label path="lokaliti" maxlength="500"  disabled="true"/><c:out value="${pengundiForm.lokaliti}"></c:out></td>  
 	         </tr> 
 	         <tr>    
 	          <td>Kumpulan Umur :</td>    
-	          <td><form:input path="kump_umur" maxlength="100"  disabled="true"/></td>  
+	          <td><form:label path="kump_umur" maxlength="100"  disabled="true"/><c:out value="${pengundiForm.kump_umur}"></c:out></td>  
 	         </tr> 
 	         <tr>    
 	          <td>Kumpulan Kaum :</td>    
-	          <td><form:input path="kump_kaum" maxlength="100"  disabled="true"/></td>  
+	          <td><form:label path="kump_kaum" maxlength="100"  disabled="true"/><c:out value="${pengundiForm.kump_kaum}"></c:out></td>  
 	         </tr> 
 	         <tr>    
-	          <td>No. Telefon 1 :</td>    
-	          <td><form:input path="tel_no1" maxlength="200"  disabled="${mode}"/></td>  
+	          <td>No. Telefon 1 :</td>
+	          	<c:choose>
+				<c:when test="${mode}">
+					 <td><form:label path="tel_no1" maxlength="500"  /><c:out value="${pengundiForm.tel_no1}"></c:out></td>  
+				</c:when>
+				<c:otherwise>
+					   <td><form:input path="tel_no1" maxlength="200"  /></td>  
+				</c:otherwise>
+			 	</c:choose>    
 	         </tr> 
 	         <tr>    
-	          <td>No. Telefon 2 :</td>    
-	          <td><form:input path="tel_no2" maxlength="200"  disabled="${mode}"/></td>  
+	          <td>No. Telefon 2 :</td>  
+	          <c:choose>
+				<c:when test="${mode}">
+					 <td><form:label path="tel_no2" maxlength="500"  /><c:out value="${pengundiForm.tel_no2}"></c:out></td>  
+				</c:when>
+				<c:otherwise>
+					   <td><form:input path="tel_no2" maxlength="200"  /></td>  
+				</c:otherwise>
+			 </c:choose>  
 	         </tr> 
 	         <tr>    
-	          <td>Alamat :</td>    
-	          <td><form:textarea path="alamat" maxlength="500" size="50"  disabled="${mode}"/></td>  
+	          <td>Alamat :</td>
+	          <c:choose>
+				<c:when test="${mode}">
+					 <td><form:label path="alamat" maxlength="500"  /><c:out value="${pengundiForm.alamat}"></c:out></td>  
+				</c:when>
+				<c:otherwise>
+					  <td><form:textarea path="alamat" maxlength="500"  /></td>  
+				</c:otherwise>
+			 </c:choose>    
 	         </tr> 
 	         <tr>    
 	          <td>Alamat ST4 :</td>    
-	          <td><form:textarea  path="alamat_st4" maxlength="500"   disabled="true"/></td>  
+	          <td><form:label  path="alamat_st4" maxlength="500"   disabled="true"/><c:out value="${pengundiForm.alamat_st4}"></c:out></td>  
 	         </tr> 
 	         <tr>    
-	          <td>Kategori A :</td>
-	          <td>
-	          	<form:select path="category_a" maxlength="1"  disabled="${mode}">
-          		<form:option value="" label=""/>
-          		<form:option value="Y" label="Y"/>
-    		    </form:select>
-    		  </td>    
+	          <td>Kategori :</td>
+	          <c:choose>
+				<c:when test="${mode}">
+					 <td><form:label path="category_a" maxlength="500"  /><c:out value="${pengundiForm.category_a}"></c:out></td>  
+				</c:when>
+				<c:otherwise>
+					   <td>
+			          	<form:select path="category_a" maxlength="1"  disabled="${mode}">
+		          		<form:option value="" label=""/>
+		          		<form:option value="A" label="A"/>
+		          		<form:option value="B" label="B"/>
+		          		<form:option value="C" label="C"/>
+		          		<form:option value="D" label="D"/>
+		          		<form:option value="E" label="E"/>
+		          		<form:option value="F" label="F"/>
+		          		<form:option value="G" label="G"/>
+		          		<form:option value="H" label="H"/>
+		          		<form:option value="I" label="I"/>
+		    		    </form:select>
+		    		  </td> 
+				</c:otherwise>
+			 </c:choose> 
+	              
 	         </tr> 
-	         <tr>    
+	         <%-- <tr>    
 	          <td>Kategori B :</td>
 	          <td>
 	          	<form:select path="category_b" maxlength="1"  disabled="${mode}">
@@ -157,7 +194,7 @@
 	         <tr>    
 	          <td>Status Alamat :</td>    
 	          <td><form:input path="status_alamat" maxlength="50"   disabled="true" /></td>  
-	         </tr>   
+	         </tr>    --%>
 	         <tr>    
 	          <td><br></td>    
 	          <c:choose>
