@@ -95,10 +95,7 @@
 	          <td>Kategori :</td>
 	          <c:choose>
 				<c:when test="${mode}">
-					 <td><form:label path="category_a
-					 
-					 
-					 " maxlength="500"  /><c:out value="${pengundiForm.category_a}"></c:out></td>  
+					 <td><form:label path="category_a" maxlength="500"  /><c:out value="${pengundiForm.category_a}"></c:out></td>  
 				</c:when>
 				<c:otherwise>
 					   <td>

@@ -32,7 +32,16 @@ public class PengundiController {
 	@RequestMapping(value = "/cari",  method = RequestMethod.POST)
 	public String cari(Model model,@ModelAttribute("pengundiForm")PengundiForm form) {
 		 logger.info("cari pengundi");
-		model.addAttribute("pengundiForm",dao.getPengundiByNoKp(form.getNo_kp()));
+		 
+		 PengundiForm formCari = dao.getPengundiByNoKp(form.getNo_kp());
+		 if (!formCari.getCategory_a().isEmpty()) {
+			
+		} else {
+
+		}
+		 
+		// formCari.setCategory_a(category_a);
+		model.addAttribute("pengundiForm",formCari);
 		model.addAttribute("mode","true");
 		return "pengundi";
 	}
