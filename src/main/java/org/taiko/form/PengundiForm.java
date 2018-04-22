@@ -3,6 +3,7 @@ package org.taiko.form;
 public class PengundiForm {
 	
 	private String no_kp;  
+	private String no_kp_carian;
 	private String nama;
 	private String jantina;
 	private String dm;
@@ -14,6 +15,7 @@ public class PengundiForm {
 	private String tel_no2;
 	private String alamat;
 	private String alamat_st4;
+	private String category;
 	private String category_a;
 	private String category_b;
 	private String category_c;
@@ -26,6 +28,8 @@ public class PengundiForm {
 	private String flag_keluar;
 	private String status_pengundi;
 	private String status_alamat;
+	private String warning;
+	private String notify;
 	
 	
 	public String getNo_kp() {
@@ -171,6 +175,30 @@ public class PengundiForm {
 	}
 	public void setCategory_h(String category_h) {
 		this.category_h = category_h;
+	}
+	public String getNo_kp_carian() {
+		return no_kp_carian;
+	}
+	public void setNo_kp_carian(String no_kp_carian) {
+		this.no_kp_carian = no_kp_carian;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getWarning() {
+		return warning;
+	}
+	public void setWarning(String warning) {
+		this.warning = warning;
+	}
+	public String getNotify() {
+		return notify;
+	}
+	public void setNotify(String notify) {
+		this.notify = notify;
 	}
 
 }

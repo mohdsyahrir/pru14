@@ -7,6 +7,11 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<context:component-scan base-package="org.taiko.controller" />
+	<context:component-scan base-package="org.taiko.service" />
+	<context:component-scan base-package="org.taiko.repository" />
+	<context:component-scan base-package="org.taiko.dao" />
+     
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -14,29 +19,14 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	
+	<beans:bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+       <beans:bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<context:component-scan base-package="org.taiko.controller" />
-	
-	<beans:bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
-	<beans:property name="driverClassName" value="org.postgresql.Driver"></beans:property>  
-	<beans:property name="url" value="jdbc:postgresql://localhost:5432/postgres"></beans:property>  
-	<beans:property name="username" value="postgres"></beans:property>  
-	<beans:property name="password" value="p@ssw0rd"></beans:property>  
-	</beans:bean>  
-  
-	<beans:bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">  
-	<beans:property name="dataSource" ref="ds"></beans:property>  
-	</beans:bean>  
-  
-	<beans:bean id="dao" class="org.taiko.dao.PengundiDao">  
-	<beans:property name="template" ref="jt"></beans:property>
-	</beans:bean> 
-	
 	
 </beans:beans>
