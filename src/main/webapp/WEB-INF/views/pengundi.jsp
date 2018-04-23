@@ -22,9 +22,18 @@
 	         </tr>
 	         <tr>    
 	          <td><br></td>
-	          <c:if test="${pengundiForm.warning.length() > 0}">
-	          	<td style="color:red;"><form:label path="warning"/><c:out value="${pengundiForm.warning}"></c:out> </td>
-	          </c:if>
+	          <c:choose>
+	          	<c:when test="${pengundiForm.warning == 'no_kp_null'}">
+	          		<td style="color:red;"><c:out value="Sila masukan nombor pengenalan."></c:out> </td>
+	          	</c:when>
+	          	<c:when test="${pengundiForm.warning == 'Data_null'}">
+	          		<td style="color:red;"><c:out value="Maklumat pengundi ini tiada dalam pengkalan data."></c:out> </td>
+	          		<td><input type="submit" formaction="tambah" value="Tambah" /></td>
+	          	</c:when>
+	          	<c:otherwise>
+	          		<td style="color:red;"><form:label path="warning"/><c:out value="${pengundiForm.warning}"></c:out> </td>
+	          	</c:otherwise>
+	          </c:choose>
 	         </tr>
 	        </table>     
         </fieldset>
@@ -103,17 +112,19 @@
 				</c:when>
 				<c:otherwise>
 					   <td>
-			          	<form:select path="category" maxlength="1"  disabled="${mode}">
+			          	<form:select path="category" disabled="${mode}">
 		          		<form:option value="" label=""/>
-		          		<form:option value="A" label="A"/>
-		          		<form:option value="B" label="B"/>
-		          		<form:option value="C" label="C"/>
-		          		<form:option value="D" label="D"/>
-		          		<form:option value="E" label="E"/>
-		          		<form:option value="F" label="F"/>
-		          		<form:option value="G" label="G"/>
-		          		<form:option value="H" label="H"/>
-		          		<form:option value="I" label="I"/>
+		          		<form:option value="A" label="Kategori A : Pengundi Luar Hadir Program"/>
+		          		<form:option value="B" label="Kategori B : Pengundi Luar Tidak Hadir Program (Putih)"/>
+		          		<form:option value="C" label="Kategori C : Pengundi Luar Tiada Kerjasama (Hitam)"/>
+		          		<form:option value="D" label="Kategori D : Tidak Angkat Phone "/>
+		          		<form:option value="E" label="Kategori E : No Tiada Dalam Service / Voice Messages "/>
+		          		<form:option value="F" label="Kategori F : Belum Dapat Dihubungi (Tiada Phone No)"/>
+		          		<form:option value="G" label="Kategori G : Confirm Pengundi Dalam"/>
+		          		<form:option value="H" label="Kategori H : Tidak Dikenal Pasti"/>
+		          		<form:option value="I" label="Kategori I : Pengundi Awal"/>
+		          		<form:option value="J" label="Kategori J : Pengundi Pos"/>
+		          		<form:option value="K" label="Kategori K : Bukan Pengundi Putrajaya"/>
 		    		    </form:select>
 		    		  </td> 
 				</c:otherwise>

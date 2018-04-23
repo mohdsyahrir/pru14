@@ -10,10 +10,13 @@
  <h1> </h1>  
        <fieldset>
         <legend>Menu</legend> 
-        	<table>    
+        	<table align="center">    
 	         <tr>    
-	          <td><a href="carianPengundi" ><button>Carian Pengundi</button></a></td>
-	           <td><a href="" ><button>Senarai Pengundi</button></a></td>
+	          <td><a href="carianPengundi"><button  style="padding: 20px 40px">Carian Pengundi</button></a></td>
+	         </tr>
+	         <tr><td><br></td></tr>
+	         <tr>    
+	           <td><a href="" ><button  style="padding: 20px 40px">Senarai Pengundi</button></a></td>
 	         </tr>
 	        </table>     
         </fieldset>

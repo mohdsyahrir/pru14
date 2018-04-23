@@ -58,15 +58,20 @@ public class PengundiController {
 		 Pengundi p = ph.findById(form.getNo_kp_carian());
 		 MirrorPengundi mp = mph.findById(form.getNo_kp_carian());
 		 String c = "";
-		 if(!(mp == null)){
+		 
+		 if(form.getNo_kp_carian() == ""){
+			 form.setWarning("no_kp_null");
+		 }else if(!(mp == null)){
 			 model.addAttribute("pengundi",mp);
 			 form.setWarning("Maklumat pengundi ini telah dikemaskini.");
 			 c = getKategoriMp(mp, c);
 			 form.setCategory(c);
-		 }else{
+		 }else if(!(p == null)) {
 			 model.addAttribute("pengundi",p);
 			 c = getKategori(p, c);
 			 form.setCategory(c);
+		 }else{
+			 form.setWarning("Data_null");
 		 }
 			
 		model.addAttribute("pengundiForm",form);
@@ -85,14 +90,14 @@ public class PengundiController {
 			 form.setAlamat(mp.getAlamat());
 			 form.setTel_no2(mp.getTelNo2());
 			 c = getKategoriMp(mp, c);
-			 form.setCategory(c);
+			 form.setCategory(c.valueOf(9));
 			 model.addAttribute("pengundi",p);
 		 }else{
 			 form.setNo_kp(p.getNoKp());
 			 form.setAlamat(p.getAlamat());
 			 form.setTel_no2(p.getTelNo2());
 			 c = getKategori(p, c);
-			 form.setCategory(c);
+			 form.setCategory(c.substring(9, 10));
 			 model.addAttribute("pengundi",p);
 		 }
 		
@@ -101,48 +106,67 @@ public class PengundiController {
 		model.addAttribute("mode","false");
 		return "pengundi";
 	}
+	
+	
+	@RequestMapping(value = "/tambah",  method = RequestMethod.POST)
+	public String tambah(Model model,@ModelAttribute("pengundiForm")PengundiForm form) {
+		 logger.info("tambah pengundi");
+		MirrorPengundi mp = new MirrorPengundi(); 
+		mp.setNoKp(form.getNo_kp_carian());
+		model.addAttribute("mp",mp);
+		model.addAttribute("mode","true");
+		return "tambahPengundi";
+	}
 
 	private String getKategori(Pengundi p, String c) {
 		if(!(p.getCategoryA() == null))
-			 c = "A";
+			 c = "Kategori A : Pengundi Luar Hadir Program";
 		 if(!(p.getCategoryB()== null))
-			 c = "B";
+			 c = "Kategori B : Pengundi Luar Tidak Hadir Program (Putih)";
 		 if(!(p.getCategoryC() == null))
-			 c = "C";
+			 c = "Kategori C : Pengundi Luar Tiada Kerjasama (Hitam)";
 		 if(!(p.getCategoryD() == null))
-			 c = "D";
+			 c = "Kategori D : Tidak Angkat Phone ";
 		 if(!(p.getCategoryE() == null))
-			 c = "E";
+			 c = "Kategori E : No Tiada Dalam Service / Voice Messages ";
 		 if(!(p.getCategoryF() == null))
-			 c = "F";
+			 c = "Kategori F : Belum Dapat Dihubungi (Tiada Phone No)";
 		 if(!(p.getCategoryG() == null))
-			 c = "G";
+			 c = "Kategori G : Confirm Pengundi Dalam";
 		 if(!(p.getCategoryH() == null))
-			 c = "H";
+			 c = "Kategori H : Tidak Dikenal Pasti";
 		 if(!(p.getCategoryI() == null))
-			 c = "I";
+			 c = "Kategori I : Pengundi Awal";
+		 if(!(p.getCategoryJ() == null))
+			 c = "Kategori J : Pengundi Pos";
+		 if(!(p.getCategoryK() == null))
+			 c = "Kategori K : Bukan Pengundi Putrajaya";
 		return c;
 	}
 	
 	private String getKategoriMp(MirrorPengundi p, String c) {
 		if(!(p.getCategoryA() == null))
-			 c = "A";
+			 c = "Kategori A : Pengundi Luar Hadir Program";
 		 if(!(p.getCategoryB()== null))
-			 c = "B";
+			 c = "Kategori B : Pengundi Luar Tidak Hadir Program (Putih)";
 		 if(!(p.getCategoryC() == null))
-			 c = "C";
+			 c = "Kategori C : Pengundi Luar Tiada Kerjasama (Hitam)";
 		 if(!(p.getCategoryD() == null))
-			 c = "D";
+			 c = "Kategori D : Tidak Angkat Phone ";
 		 if(!(p.getCategoryE() == null))
-			 c = "E";
+			 c = "Kategori E : No Tiada Dalam Service / Voice Messages ";
 		 if(!(p.getCategoryF() == null))
-			 c = "F";
+			 c = "Kategori F : Belum Dapat Dihubungi (Tiada Phone No)";
 		 if(!(p.getCategoryG() == null))
-			 c = "G";
+			 c = "Kategori G : Confirm Pengundi Dalam";
 		 if(!(p.getCategoryH() == null))
-			 c = "H";
+			 c = "Kategori H : Tidak Dikenal Pasti";
 		 if(!(p.getCategoryI() == null))
-			 c = "I";
+			 c = "Kategori I : Pengundi Awal";
+		 if(!(p.getCategoryJ() == null))
+			 c = "Kategori J : Pengundi Pos";
+		 if(!(p.getCategoryK() == null))
+			 c = "Kategori K : Bukan Pengundi Putrajaya";
 		return c;
 	}
 	
@@ -164,6 +188,18 @@ public class PengundiController {
 			 
 		 }
 		model.addAttribute("pengundiForm", form);
+		model.addAttribute("pengundi",mp);
+		model.addAttribute("mode","true");
+		return "pengundi";
+	}
+	
+	
+	@RequestMapping(value = "/saveBaru",  method = RequestMethod.POST)
+	public String saveBaru(Model model,@ModelAttribute("mp")MirrorPengundi mp) {
+		logger.info("simpan pengundi");
+		
+		mph.persist(mp);
+//		model.addAttribute("pengundiForm", form);
 		model.addAttribute("pengundi",mp);
 		model.addAttribute("mode","true");
 		return "pengundi";

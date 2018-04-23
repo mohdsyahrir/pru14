@@ -42,6 +42,8 @@ public class Pengundi implements java.io.Serializable {
 	private String statusPengundi;
 	private String statusAlamat;
 	private String categoryI;
+	private String categoryJ;
+	private String categoryK;
 
 	public Pengundi() {
 	}
@@ -54,7 +56,7 @@ public class Pengundi implements java.io.Serializable {
 			String kumpUmur, String kumpKaum, String telNo1, String telNo2, String alamat, String alamatSt4,
 			String categoryA, String categoryB, String categoryC, String categoryD, String categoryE, String categoryF,
 			String categoryG, String categoryH, String flagMasuk, String flagKeluar, String statusPengundi,
-			String statusAlamat, String categoryI) {
+			String statusAlamat, String categoryI, String categoryJ, String categoryK) {
 		this.noKp = noKp;
 		this.nama = nama;
 		this.jantina = jantina;
@@ -80,6 +82,8 @@ public class Pengundi implements java.io.Serializable {
 		this.statusPengundi = statusPengundi;
 		this.statusAlamat = statusAlamat;
 		this.categoryI = categoryI;
+		this.categoryJ = categoryJ;
+		this.categoryK = categoryK;
 	}
 
 	@Id
@@ -307,6 +311,24 @@ public class Pengundi implements java.io.Serializable {
 
 	public void setCategoryI(String categoryI) {
 		this.categoryI = categoryI;
+	}
+
+	@Column(name = "category_j", length = 1)
+	public String getCategoryJ() {
+		return categoryJ;
+	}
+
+	public void setCategoryJ(String categoryJ) {
+		this.categoryJ = categoryJ;
+	}
+
+	@Column(name = "category_k", length = 1)
+	public String getCategoryK() {
+		return categoryK;
+	}
+
+	public void setCategoryK(String categoryK) {
+		this.categoryK = categoryK;
 	}
 
 }

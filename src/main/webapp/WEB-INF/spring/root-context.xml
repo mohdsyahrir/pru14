@@ -17,15 +17,29 @@
       	
       <tx:annotation-driven transaction-manager="transactionManager" />
 	
+	<!--taiko db  -->
+	<!-- <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+		<property name="driverClassName" value="org.postgresql.Driver"></property>  
+		<property name="url" value="jdbc:postgresql://taikodb.no-ip.org:5432/pru14"></property>  
+		<property name="username" value="pru14"></property>  
+		<property name="password" value="danial"></property>  
+	</bean> -->		
+	
+	<!--ofis local  -->
 	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
 		<property name="driverClassName" value="org.postgresql.Driver"></property>  
-		<!-- <property name="url" value="jdbc:postgresql://taikodb.no-ip.org:5432/pru14"></property>  
-		<property name="username" value="pru14"></property>  
-		<property name="password" value="danial"></property> -->  
+		<property name="url" value="jdbc:postgresql://localhost:5432/postgres"></property>  
+		<property name="username" value="postgres"></property>  
+		<property name="password" value="p@ssw0rd"></property>
+	</bean>
+	
+	<!--rumah local  -->
+	<!-- <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+		<property name="driverClassName" value="org.postgresql.Driver"></property>  
 		<property name="url" value="jdbc:postgresql://localhost:5432/postgres"></property>  
 		<property name="username" value="postgres"></property>  
 		<property name="password" value="Passw0rd"></property>
-	</bean>		
+	</bean> -->
 	
 	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">  
 		<property name="dataSource" ref="ds"></property>  
