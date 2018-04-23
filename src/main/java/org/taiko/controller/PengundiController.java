@@ -186,6 +186,8 @@ public class PengundiController {
 			 setMpCategory(form, mp);
 			 mph.persist(mp);
 		 }
+		 String c = getKategoriMp(mp, "");
+		 form.setCategory(c);
 		model.addAttribute("pengundiForm", form);
 		model.addAttribute("pengundi",mp);
 		model.addAttribute("mode","true");
