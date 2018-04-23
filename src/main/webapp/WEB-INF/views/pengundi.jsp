@@ -143,7 +143,13 @@
 					 <td><input type="submit" formaction="save"  value="Simpan" /></td>
 				</c:otherwise>
 			 </c:choose>
-	         </tr>    
+	         </tr>   
+	         <tr>    
+	          <td><br></td>   
+	          <c:if test="${saveKemaskini}">
+          		<td style="color:green;"><c:out value="Maklumat berjaya disimpan."></c:out> </td>
+          		</c:if> 
+	         </tr>  
 	         <tr>    
 	          <td><br></td>    
 	         </tr> 

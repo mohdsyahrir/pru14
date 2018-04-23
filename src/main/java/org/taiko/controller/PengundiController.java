@@ -191,6 +191,7 @@ public class PengundiController {
 		model.addAttribute("pengundiForm", form);
 		model.addAttribute("pengundi",mp);
 		model.addAttribute("mode","true");
+		model.addAttribute("saveKemaskini","true");
 		return "pengundi";
 	}
 	
