@@ -90,8 +90,8 @@ public class PengundiController {
 			 form.setAlamat(mp.getAlamat());
 			 form.setTel_no2(mp.getTelNo2());
 			 c = getKategoriMp(mp, c);
-			 form.setCategory(c.valueOf(9));
-			 model.addAttribute("pengundi",p);
+			 form.setCategory(c.substring(9, 10));
+			 model.addAttribute("pengundi",mp);
 		 }else{
 			 form.setNo_kp(p.getNoKp());
 			 form.setAlamat(p.getAlamat());
@@ -114,7 +114,6 @@ public class PengundiController {
 		MirrorPengundi mp = new MirrorPengundi(); 
 		mp.setNoKp(form.getNo_kp_carian());
 		model.addAttribute("mp",mp);
-		model.addAttribute("mode","true");
 		return "tambahPengundi";
 	}
 
@@ -170,22 +169,22 @@ public class PengundiController {
 		return c;
 	}
 	
-	@SuppressWarnings("unused")
 	@RequestMapping(value = "/save",  method = RequestMethod.POST)
 	public String save(Model model,@ModelAttribute("pengundiForm")PengundiForm form) {
 		logger.info("simpan pengundi");
-		
-		Pengundi p = ph.findById(form.getNo_kp());
-		MirrorPengundi mp = mph.mergePengundiToMirrorPengundi(p);
-		 
-		mp.setTelNo2(form.getTel_no2());
-		mp.setAlamat(form.getAlamat());
-		setMpCategory(form, mp);
+		MirrorPengundi mp = mph.findById(form.getNo_kp());
 		 if(!(mp == null)){
+			 mp.setTelNo2(form.getTel_no2());
+			 mp.setAlamat(form.getAlamat());
+			 setMpCategory(form, mp);
 			 mph.merge(mp);
 		 }else{
+			 Pengundi p = ph.findById(form.getNo_kp());
+			 mp = mph.mergePengundiToMirrorPengundi(p);
+			 mp.setTelNo2(form.getTel_no2());
+			 mp.setAlamat(form.getAlamat());
+			 setMpCategory(form, mp);
 			 mph.persist(mp);
-			 
 		 }
 		model.addAttribute("pengundiForm", form);
 		model.addAttribute("pengundi",mp);
@@ -197,12 +196,23 @@ public class PengundiController {
 	@RequestMapping(value = "/saveBaru",  method = RequestMethod.POST)
 	public String saveBaru(Model model,@ModelAttribute("mp")MirrorPengundi mp) {
 		logger.info("simpan pengundi");
-		
-		mph.persist(mp);
-//		model.addAttribute("pengundiForm", form);
-		model.addAttribute("pengundi",mp);
-		model.addAttribute("mode","true");
-		return "pengundi";
+		String page = "";
+		MirrorPengundi nmp = mp;
+		setMpCategory(nmp, mp);
+		try {
+			mph.persist(nmp);
+			model.addAttribute("save","true");
+			model.addAttribute("mode","true");
+			model.addAttribute("pengundiForm", new PengundiForm());
+			page = "pengundi";
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			model.addAttribute("save","false");
+			page = "tambahPengundi";
+			model.addAttribute("mp",nmp);
+			
+		}
+		return page;
 	}
 
 	private void setMpCategory(PengundiForm form, MirrorPengundi mp) {
@@ -232,6 +242,37 @@ public class PengundiController {
 		}
 		if(form.getCategory().equals("I")){
 			mp.setCategoryI("Y");
+		}
+	}
+	
+	
+	private void setMpCategory(MirrorPengundi nmp,MirrorPengundi mp) {
+		if(mp.getCategoryA().equals("A")){
+			nmp.setCategoryA("Y");
+		}
+		if(mp.getCategoryA().equals("B")){
+			nmp.setCategoryB("Y");		
+		}
+		if(mp.getCategoryA().equals("C")){
+			nmp.setCategoryC("Y");
+		}
+		if(mp.getCategoryA().equals("D")){
+			nmp.setCategoryD("Y");
+		}
+		if(mp.getCategoryA().equals("E")){
+			nmp.setCategoryE("Y");
+		}
+		if(mp.getCategoryA().equals("F")){
+			nmp.setCategoryF("Y");
+		}
+		if(mp.getCategoryA().equals("G")){
+			nmp.setCategoryG("Y");
+		}
+		if(mp.getCategoryA().equals("H")){
+			nmp.setCategoryH("Y");
+		}
+		if(mp.getCategoryA().equals("I")){
+			nmp.setCategoryI("Y");
 		}
 	}
 	

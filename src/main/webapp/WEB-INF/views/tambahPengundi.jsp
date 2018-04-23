@@ -8,7 +8,7 @@
 </head>
 <body>
  <h1> </h1>  
-       <form:form method="post" commandName="mp" action="save">   
+       <form:form method="post" commandName="mp" action="saveBaru">   
         <br>
        <fieldset>
         <legend> MAKLUMAT PENGUNDI</legend>
@@ -127,7 +127,19 @@
 	         <tr>    
 	          <td><br></td>    
 	           <td><input type="submit"  value="Simpan" /></td>
-	         </tr>    
+	         </tr>
+	         <%-- <tr>    
+	           <td><br></td>
+	           <c:choose>
+	           	<c:when test="${save}">
+	           		 <td style="color:green;"><c:out value="Maklumat berjaya disimpan."></c:out> </td>
+<!-- 	           		  <td><input type="submit" formaction="carianPengundi" formmethod="get" value="Kembali" /></td> -->
+	           	</c:when>
+	           	<c:when test="${save == false}">
+	           		<td style="color:red;"><c:out value="Maklumat gagal disimpan."></c:out> </td>
+	           	</c:when>
+	           </c:choose>
+	         </tr>     --%>
 	         <tr>    
 	          <td><br></td>    
 	         </tr> 

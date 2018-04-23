@@ -11,7 +11,10 @@
        <form:form method="post" commandName="pengundiForm" action="cari">   
        <fieldset>
         <legend>CARIAN</legend> 
-        	<table>    
+        	<table>  
+        	<c:if test="${save}">
+          		<td style="color:green;"><c:out value="Maklumat berjaya disimpan."></c:out> </td>
+          	</c:if>  
 	         <tr>    
 	          <td>No Kad Pengenalan : </td>   
 	          <td><form:input path="no_kp_carian" maxlength="20"  /></td> 
