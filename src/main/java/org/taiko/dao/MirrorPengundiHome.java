@@ -113,6 +113,7 @@ public class MirrorPengundiHome {
 		mp.setFlagKeluar(p.getFlagKeluar());
 		mp.setStatusPengundi(p.getStatusPengundi());
 		mp.setStatusAlamat(p.getStatusAlamat());
+		mp.setNegeri(p.getNegeri());
 		return mp;
 	}
 

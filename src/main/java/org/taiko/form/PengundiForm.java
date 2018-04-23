@@ -30,6 +30,7 @@ public class PengundiForm {
 	private String status_alamat;
 	private String warning;
 	private String notify;
+	private String negeri;
 	
 	
 	public String getNo_kp() {
@@ -199,6 +200,12 @@ public class PengundiForm {
 	}
 	public void setNotify(String notify) {
 		this.notify = notify;
+	}
+	public String getNegeri() {
+		return negeri;
+	}
+	public void setNegeri(String negeri) {
+		this.negeri = negeri;
 	}
 
 }

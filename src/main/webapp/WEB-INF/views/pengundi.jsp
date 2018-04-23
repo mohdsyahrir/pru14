@@ -88,10 +88,14 @@
 					 <td><form:label path="tel_no2" maxlength="500"  /><c:out value="${pengundi.telNo2}"></c:out></td>  
 				</c:when>
 				<c:otherwise>
-					   <td><form:input path="tel_no2" maxlength="200"  /></td>  
+					   <td><form:input path="tel_no2" id="tel_no2" maxlength="200" onkeyup="validate1();" /></td>  
 				</c:otherwise>
 			 </c:choose>  
 	         </tr> 
+	          <tr id="msg2t" style="display: none;">    
+	          	<td><br></td>   
+          		<td style="color:red;"><c:out value="Sila masukkan nombor telefon yang betul."></c:out> </td>
+	          </tr>  
 	         <tr>    
 	          <td>Alamat :</td>
 	          <c:choose>
@@ -107,6 +111,24 @@
 	          <td>Alamat ST4 :</td>    
 	          <td><form:label  path="alamat_st4" maxlength="500"   disabled="true"/><c:out value="${pengundi.alamatSt4}"></c:out></td>  
 	         </tr> 
+	         <tr>    
+	          <td>Negeri :</td>
+	          <c:choose>
+				<c:when test="${mode}">
+					 <td><form:label path="negeri" maxlength="500"  /><c:out value="${pengundi.negeri}"></c:out></td>  
+				</c:when>
+				<c:otherwise>
+					   <td>
+			          	<form:select path="negeri">
+		          		<form:option value="" label=""/>
+		          		<c:forEach items="${negeriL}" var="negeri">
+					            <form:option value="${negeri}" label="${negeri}"/>
+					    </c:forEach>
+		    		    </form:select>
+		    		   </td> 
+				</c:otherwise>
+			 </c:choose>      
+	         </tr>
 	         <tr>    
 	          <td>Kategori :</td>
 	          <c:choose>
@@ -158,4 +180,19 @@
         
        </form:form>    
 </body>
+<script type="text/javascript">
+function validate1(){
+	var str1, text;
+	 str1 = document.getElementById("tel_no2").value;
+	 var x = document.getElementById("msg2t");
+	if(isNaN(str1)){
+		 x.style.display = "block";
+	 }else{
+		 text ="";
+		 x.style.display = "none";
+	 }
+// 	document.getElementById("msg2p").innerHTML = text;
+}
+
+</script>
 </html>

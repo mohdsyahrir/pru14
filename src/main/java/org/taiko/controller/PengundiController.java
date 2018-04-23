@@ -1,5 +1,8 @@
 package org.taiko.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,6 @@ import org.taiko.dao.PengundiHome;
 import org.taiko.entity.MirrorPengundi;
 import org.taiko.entity.Pengundi;
 import org.taiko.form.PengundiForm;
-import org.taiko.service.PengundiService;
 
 @Controller
 public class PengundiController {
@@ -23,7 +25,7 @@ public class PengundiController {
 	@Autowired PengundiDao dao;
 	@Autowired PengundiHome ph;
 	@Autowired private MirrorPengundiHome mph;
-	@Autowired private PengundiService pengundiService;
+//	@Autowired private PengundiService pengundiService;s
 //	@Autowired private Repo repo;
 	
 	private static final Logger logger = LoggerFactory.getLogger(PengundiController.class);
@@ -48,7 +50,6 @@ public class PengundiController {
 	@RequestMapping(value = "/senaraiPengundi",  method = RequestMethod.GET)
 	public String senaraiPengundi() {
 		logger.info("Page senarai Pengundi");
-		
 		return "senaraiPengundi";
 	}
 	
@@ -73,7 +74,6 @@ public class PengundiController {
 		 }else{
 			 form.setWarning("Data_null");
 		 }
-			
 		model.addAttribute("pengundiForm",form);
 		model.addAttribute("mode","true");
 		return "pengundi";
@@ -92,17 +92,18 @@ public class PengundiController {
 			 c = getKategoriMp(mp, c);
 			 form.setCategory(c.substring(9, 10));
 			 model.addAttribute("pengundi",mp);
+			 form.setNegeri(mp.getNegeri());
 		 }else{
 			 form.setNo_kp(p.getNoKp());
 			 form.setAlamat(p.getAlamat());
 			 form.setTel_no2(p.getTelNo2());
+			 form.setNegeri(p.getNegeri());
 			 c = getKategori(p, c);
 			 form.setCategory(c.substring(9, 10));
 			 model.addAttribute("pengundi",p);
 		 }
-		
-			model.addAttribute("pengundiForm",form);
-			
+		model.addAttribute("negeriL",listNegeri());	
+		model.addAttribute("pengundiForm",form);
 		model.addAttribute("mode","false");
 		return "pengundi";
 	}
@@ -114,6 +115,7 @@ public class PengundiController {
 		MirrorPengundi mp = new MirrorPengundi(); 
 		mp.setNoKp(form.getNo_kp_carian());
 		model.addAttribute("mp",mp);
+		model.addAttribute("negeriL",listNegeri());	
 		return "tambahPengundi";
 	}
 
@@ -176,6 +178,7 @@ public class PengundiController {
 		 if(!(mp == null)){
 			 mp.setTelNo2(form.getTel_no2());
 			 mp.setAlamat(form.getAlamat());
+			 mp.setNegeri(form.getNegeri());
 			 setMpCategory(form, mp);
 			 mph.merge(mp);
 		 }else{
@@ -183,6 +186,7 @@ public class PengundiController {
 			 mp = mph.mergePengundiToMirrorPengundi(p);
 			 mp.setTelNo2(form.getTel_no2());
 			 mp.setAlamat(form.getAlamat());
+			 mp.setNegeri(form.getNegeri());
 			 setMpCategory(form, mp);
 			 mph.persist(mp);
 		 }
@@ -204,16 +208,21 @@ public class PengundiController {
 		setMpCategory(nmp, mp);
 		try {
 			mph.persist(nmp);
+			PengundiForm form = new PengundiForm();
+			form.setWarning("Maklumat pengundi ini telah dikemaskini.");
+			String c = getKategoriMp(mp, "");
+		    form.setCategory(c);
+		    form.setNo_kp_carian(mp.getNoKp());
+			model.addAttribute("pengundiForm", form);
 			model.addAttribute("save","true");
 			model.addAttribute("mode","true");
-			model.addAttribute("pengundiForm", new PengundiForm());
+			model.addAttribute("pengundi",mp);
 			page = "pengundi";
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			model.addAttribute("save","false");
 			page = "tambahPengundi";
 			model.addAttribute("mp",nmp);
-			
 		}
 		return page;
 	}
@@ -279,11 +288,24 @@ public class PengundiController {
 		}
 	}
 	
-	@RequestMapping(value = "/test",  method = RequestMethod.GET)
-	public String test() {
-//	List<MirrorPengundi> list = pengundiService.findAll();
-		return "index";
+	public List<String> listNegeri(){
+		List<String> negeriL = new ArrayList<String>();
+		negeriL.add("JOHOR");
+		negeriL.add("KEDAH");
+		negeriL.add("KELANTAN");
+		negeriL.add("KUALA LUMPUR");
+		negeriL.add("LABUAN");
+		negeriL.add("MELAKA");
+		negeriL.add("NEGERI SEMBILAN");
+		negeriL.add("PAHANG");
+		negeriL.add("PERAK");
+		negeriL.add("PERLIS");
+		negeriL.add("PULAU PINANG");
+		negeriL.add("PUTRAJAYA");
+		negeriL.add("SABAH");
+		negeriL.add("SARAWAK");
+		negeriL.add("SELANGOR");
+		negeriL.add("TERENGGANU");
+		return negeriL;
+		}
 	}
-	
-
-}

@@ -91,7 +91,7 @@
 	         </tr>
 	         <tr>    
 	          <td>No. Telefon 2 :</td>  
-	        	<td><form:input path="telNo2" maxlength="200"  onkeyup="validate1();"/></td> 
+	        	<td><form:input path="telNo2" id="telNo2" maxlength="200"  onkeyup="validate1();"/></td> 
 	         </tr> 
 	         <tr id="msg2t" style="display: none">   
 	         	<td></td> 
@@ -100,6 +100,17 @@
 	         <tr>    
 	          <td>Alamat :</td>
 	        <td><form:textarea path="alamat" maxlength="500" /></td>
+	         </tr>
+	         <tr>    
+	          <td>Negeri :</td>
+			   <td>
+	          	<form:select path="negeri">
+          		<form:option value="" label=""/>
+          		<c:forEach items="${negeriL}" var="negeri">
+			            <form:option value="${negeri}" label="${negeri}"/>
+			    </c:forEach>
+    		    </form:select>
+    		   </td> 
 	         </tr> 
 	        <%--  <tr>    
 	          <td>Alamat ST4 :</td>    
