@@ -41,6 +41,7 @@ public class PengundiController {
 		form.setMethodName("menu");
 		model.addAttribute("pengundiForm", form);
 		model.addAttribute("pinKod", sesion.getAttribute("pinKod"));
+		model.addAttribute("sah", true);
 		logger.info((String) sesion.getAttribute("pinKod"));
 		return "index";
 	}
@@ -61,6 +62,8 @@ public class PengundiController {
 			return menu(model,sesion);
 		}else if(form.getMethodName().equals("carianPengundi")){
 			return carianPengundi(model,sesion);
+		}else if(form.getMethodName().equals("tambah")){
+			return tambah(model,form);
 		}else{
 			return null;
 		}
@@ -75,12 +78,15 @@ public class PengundiController {
 		PengundiForm form = new PengundiForm();
 		form.setMethodName("carianPengundi");
 		model.addAttribute("pengundiForm", form);
+		model.addAttribute("sah", true);
 		model.addAttribute("pinKod", sesion.getAttribute("pinKod"));
 		return "pengundi";
 	}
 	
 	@RequestMapping(value = "/senaraiPengundi",  method = RequestMethod.GET)
 	public String senaraiPengundi() {
+//		List<Pengundi> pengundiL =  ph.findAll();
+		List<MirrorPengundi> mpl = mph.findAll();
 		logger.info("Page senarai Pengundi");
 		return "senaraiPengundi";
 	}
@@ -146,6 +152,7 @@ public class PengundiController {
 		 logger.info("tambah pengundi");
 		MirrorPengundi mp = new MirrorPengundi(); 
 		mp.setNoKp(form.getNo_kp_carian());
+		form.setMethodName("tambah");
 		model.addAttribute("mp",mp);
 		model.addAttribute("negeriL",listNegeri());	
 		return "tambahPengundi";
@@ -321,58 +328,36 @@ public class PengundiController {
 	private void setMpCategory(MirrorPengundi nmp,MirrorPengundi mp) {
 		if(mp.getCategoryA().equals("A")){
 			nmp.setCategoryA("Y");
-		}else{
-			nmp.setCategoryA(null);
 		}
 		if(mp.getCategoryA().equals("B")){
 			nmp.setCategoryB("Y");		
-		}else{
-			nmp.setCategoryB(null);
 		}
 		if(mp.getCategoryA().equals("C")){
 			nmp.setCategoryC("Y");
-		}else{
-			nmp.setCategoryC(null);
 		}
 		if(mp.getCategoryA().equals("D")){
 			nmp.setCategoryD("Y");
-		}else{
-			nmp.setCategoryD(null);
 		}
 		if(mp.getCategoryA().equals("E")){
 			nmp.setCategoryE("Y");
-		}else{
-			nmp.setCategoryE(null);
 		}
 		if(mp.getCategoryA().equals("F")){
 			nmp.setCategoryF("Y");
-		}else{
-			nmp.setCategoryF(null);
 		}
 		if(mp.getCategoryA().equals("G")){
 			nmp.setCategoryG("Y");
-		}else{
-			nmp.setCategoryG(null);
 		}
 		if(mp.getCategoryA().equals("H")){
 			nmp.setCategoryH("Y");
-		}else{
-			nmp.setCategoryH(null);
 		}
 		if(mp.getCategoryA().equals("I")){
 			nmp.setCategoryI("Y");
-		}else{
-			nmp.setCategoryI(null);
 		}
 		if(mp.getCategoryA().equals("J")){
 			nmp.setCategoryJ("Y");
-		}else{
-			nmp.setCategoryJ(null);
 		}
 		if(mp.getCategoryA().equals("K")){
 			nmp.setCategoryK("Y");
-		}else{
-			nmp.setCategoryK(null);
 		}
 	}
 	

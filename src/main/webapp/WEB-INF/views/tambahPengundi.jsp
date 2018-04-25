@@ -1,15 +1,43 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <html>
 <head>
 	<title>Pengundi</title>
 </head>
 <body>
  <h1> </h1>  
-       <form:form method="post" commandName="mp" action="saveBaru">   
+         
         <br>
+        <c:choose>
+       		<c:when test="${sessionScope.pinKod == null}">
+       		<form:form method="post" commandName="pengundiForm"> 
+       			<fieldset>
+		 			<legend>Pengesahan</legend> 
+		        	<table align="center">    
+			         <tr>    
+			          <td>Pin Kod : </td>   
+			          <td><form:password path="pinKod" maxlength="8"/></td>
+			         </tr>
+			         <tr>    
+			          <td><br></td>    
+						 <td><input type="submit" value="Sahkan" formaction="pengesahan"/></td>
+						 <td><form:hidden path="methodName" /></td>
+						 <td><form:hidden path="no_kp_carian" /></td>
+			         </tr>
+			         <tr>    
+			          <td><br></td>   
+			          	 <c:if test="${not sah}">
+			          		<td style="color:red;"><c:out value="Pin kod yang dimasukkan tidak sah."></c:out> </td>
+			          	</c:if>
+			         </tr>
+			        </table>     
+		        </fieldset>
+		        </form:form>
+       		</c:when>
+       		<c:otherwise>
+       <form:form method="post" commandName="mp" action="saveBaru"> 		
        <fieldset>
         <legend> MAKLUMAT PENGUNDI</legend>
        	<table>
@@ -141,25 +169,15 @@
 	          <td><br></td>    
 	           <td><input type="submit"  value="Simpan" /></td>
 	         </tr>
-	         <%-- <tr>    
-	           <td><br></td>
-	           <c:choose>
-	           	<c:when test="${save}">
-	           		 <td style="color:green;"><c:out value="Maklumat berjaya disimpan."></c:out> </td>
-<!-- 	           		  <td><input type="submit" formaction="carianPengundi" formmethod="get" value="Kembali" /></td> -->
-	           	</c:when>
-	           	<c:when test="${save == false}">
-	           		<td style="color:red;"><c:out value="Maklumat gagal disimpan."></c:out> </td>
-	           	</c:when>
-	           </c:choose>
-	         </tr>     --%>
 	         <tr>    
 	          <td><br></td>    
 	         </tr> 
         </table>    
        </fieldset>
-        
-       </form:form>    
+       </form:form>
+        </c:otherwise>
+		 </c:choose> 
+           
 </body>
 
 <script >

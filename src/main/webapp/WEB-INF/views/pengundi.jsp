@@ -1,7 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <html>
 <head>
 	<title>Pengundi</title>
@@ -10,18 +10,24 @@
  <h1> </h1>  
        <form:form method="post" commandName="pengundiForm" action="cari">   
        <c:choose>
-       		<c:when test="${pinKod == null}">
+       		<c:when test="${sessionScope.pinKod == null}">
        			<fieldset>
 		 			<legend>Pengesahan</legend> 
 		        	<table align="center">    
 			         <tr>    
-			          <td>Pin kod : </td>   
+			          <td>Pin Kod : </td>   
 			          <td><form:password path="pinKod" maxlength="8"/></td>
 			         </tr>
 			         <tr>    
 			          <td><br></td>    
 						 <td><input type="submit" value="Sahkan" formaction="pengesahan"/></td>
 						 <td><form:hidden path="methodName" /></td>
+			         </tr>
+			         <tr>    
+			          <td><br></td>   
+			          	 <c:if test="${not sah}">
+			          		<td style="color:red;"><c:out value="Pin kod yang dimasukkan tidak sah."></c:out> </td>
+			          	</c:if>
 			         </tr>
 			        </table>     
 		        </fieldset>

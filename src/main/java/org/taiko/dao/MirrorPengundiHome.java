@@ -1,10 +1,13 @@
 package org.taiko.dao;
 // Generated Apr 21, 2018 12:15:22 AM by Hibernate Tools 5.1.0.Alpha1
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -126,4 +129,18 @@ public class MirrorPengundiHome {
 		
 		
 	}
+
+	public List<MirrorPengundi> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*public List<Pengundi> findAll() {
+		
+		 Query query = entityManager.createQuery("SELECT * FROM pengundi");
+		 
+		 List<Pengundi>
+		 
+		return 
+	}*/
 }
