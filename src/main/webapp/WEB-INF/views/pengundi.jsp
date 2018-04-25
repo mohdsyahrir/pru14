@@ -9,7 +9,25 @@
 <body>
  <h1> </h1>  
        <form:form method="post" commandName="pengundiForm" action="cari">   
-       <fieldset>
+       <c:choose>
+       		<c:when test="${pinKod == null}">
+       			<fieldset>
+		 			<legend>Pengesahan</legend> 
+		        	<table align="center">    
+			         <tr>    
+			          <td>Pin kod : </td>   
+			          <td><form:password path="pinKod" maxlength="8"/></td>
+			         </tr>
+			         <tr>    
+			          <td><br></td>    
+						 <td><input type="submit" value="Sahkan" formaction="pengesahan"/></td>
+						 <td><form:hidden path="methodName" /></td>
+			         </tr>
+			        </table>     
+		        </fieldset>
+       		</c:when>
+       		<c:otherwise>
+       		<fieldset>
         <legend>CARIAN</legend> 
         	<table>  
         	<c:if test="${save}">
@@ -159,7 +177,7 @@
 	          <td><br></td>    
 	          <c:choose>
 				<c:when test="${mode}">
-					 <td><input type="submit" formaction="kemaskini"  value="Kemaskini" /></td>
+					 <td><input type="submit"  formaction="kemaskini"  value="Kemaskini" /></td>
 				</c:when>
 				<c:otherwise>
 					 <td><input type="submit" formaction="save"  value="Simpan" /></td>
@@ -177,6 +195,8 @@
 	         </tr> 
         </table>    
        </fieldset>
+      </c:otherwise>
+         </c:choose>
         
        </form:form>    
 </body>

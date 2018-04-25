@@ -3,6 +3,8 @@ package org.taiko.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +14,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.taiko.dao.MirrorPengundiHome;
-import org.taiko.dao.PengundiDao;
 import org.taiko.dao.PengundiHome;
+import org.taiko.dao.PinKodHome;
 import org.taiko.entity.MirrorPengundi;
 import org.taiko.entity.Pengundi;
+import org.taiko.entity.PinKod;
 import org.taiko.form.PengundiForm;
 
 @Controller
 public class PengundiController {
 	
 	
-	@Autowired PengundiDao dao;
 	@Autowired PengundiHome ph;
 	@Autowired private MirrorPengundiHome mph;
-//	@Autowired private PengundiService pengundiService;s
-//	@Autowired private Repo repo;
+	@Autowired private PinKodHome pkh;
 	
 	private static final Logger logger = LoggerFactory.getLogger(PengundiController.class);
 	
@@ -34,16 +35,47 @@ public class PengundiController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/",  method = RequestMethod.GET)
-	public String menu() {
+	public String menu(Model model, HttpSession sesion) {
 		logger.info("Page menu");
+		PengundiForm form = new PengundiForm();
+		form.setMethodName("menu");
+		model.addAttribute("pengundiForm", form);
+		model.addAttribute("pinKod", sesion.getAttribute("pinKod"));
+		logger.info((String) sesion.getAttribute("pinKod"));
 		return "index";
 	}
 	
+	@RequestMapping(value = "/pengesahan",  method = RequestMethod.POST)
+	public String pengesahan(Model model,HttpSession sesion,@ModelAttribute("pengundiForm")PengundiForm form) {
+		logger.info("Pengesahan");
+		logger.info(form.getPinKod());
+		PinKod pk = pkh.findById(1);
+		if(form.getPinKod().equals(pk.getPin())){
+			model.addAttribute("sah", true);
+			sesion.setAttribute("pinKod", pk.getPin());
+		}else{
+			model.addAttribute("sah", false);
+			sesion.setAttribute("pinKod", null);
+		}
+		if(form.getMethodName().equals("menu")){
+			return menu(model,sesion);
+		}else if(form.getMethodName().equals("carianPengundi")){
+			return carianPengundi(model,sesion);
+		}else{
+			return null;
+		}
+		
+		 
+	}
+	
 	@RequestMapping(value = "/carianPengundi",  method = RequestMethod.GET)
-	public String carianPengundi(Model model) {
+	public String carianPengundi(Model model,HttpSession sesion) {
 		logger.info("Page carian pengundi");
-		model.addAttribute("pengundiForm", new PengundiForm());
 		model.addAttribute("mode","true");
+		PengundiForm form = new PengundiForm();
+		form.setMethodName("carianPengundi");
+		model.addAttribute("pengundiForm", form);
+		model.addAttribute("pinKod", sesion.getAttribute("pinKod"));
 		return "pengundi";
 	}
 	
@@ -230,30 +262,58 @@ public class PengundiController {
 	private void setMpCategory(PengundiForm form, MirrorPengundi mp) {
 		if(form.getCategory().equals("A")){
 			mp.setCategoryA("Y");
+		}else{
+			mp.setCategoryA(null);
 		}
 		if(form.getCategory().equals("B")){
 			mp.setCategoryB("Y");		
+		}else{
+			mp.setCategoryB(null);
 		}
 		if(form.getCategory().equals("C")){
 			mp.setCategoryC("Y");
+		}else{
+			mp.setCategoryC(null);
 		}
 		if(form.getCategory().equals("D")){
 			mp.setCategoryD("Y");
+		}else{
+			mp.setCategoryD(null);
 		}
 		if(form.getCategory().equals("E")){
 			mp.setCategoryE("Y");
+		}else{
+			mp.setCategoryE(null);
 		}
 		if(form.getCategory().equals("F")){
 			mp.setCategoryF("Y");
+		}else{
+			mp.setCategoryF(null);
 		}
 		if(form.getCategory().equals("G")){
 			mp.setCategoryG("Y");
+		}else{
+			mp.setCategoryG(null);
 		}
 		if(form.getCategory().equals("H")){
 			mp.setCategoryH("Y");
+		}else{
+			mp.setCategoryH(null);
 		}
 		if(form.getCategory().equals("I")){
 			mp.setCategoryI("Y");
+		}else{
+			mp.setCategoryI(null);
+		}
+		if(form.getCategory().equals("J")){
+			mp.setCategoryJ("Y");
+		}else{
+			mp.setCategoryJ(null);
+		}
+		if(form.getCategory().equals("K")){
+			mp.setCategoryK("Y");
+		}else{
+			mp.setCategoryK(null);
 		}
 	}
 	
@@ -261,30 +321,58 @@ public class PengundiController {
 	private void setMpCategory(MirrorPengundi nmp,MirrorPengundi mp) {
 		if(mp.getCategoryA().equals("A")){
 			nmp.setCategoryA("Y");
+		}else{
+			nmp.setCategoryA(null);
 		}
 		if(mp.getCategoryA().equals("B")){
 			nmp.setCategoryB("Y");		
+		}else{
+			nmp.setCategoryB(null);
 		}
 		if(mp.getCategoryA().equals("C")){
 			nmp.setCategoryC("Y");
+		}else{
+			nmp.setCategoryC(null);
 		}
 		if(mp.getCategoryA().equals("D")){
 			nmp.setCategoryD("Y");
+		}else{
+			nmp.setCategoryD(null);
 		}
 		if(mp.getCategoryA().equals("E")){
 			nmp.setCategoryE("Y");
+		}else{
+			nmp.setCategoryE(null);
 		}
 		if(mp.getCategoryA().equals("F")){
 			nmp.setCategoryF("Y");
+		}else{
+			nmp.setCategoryF(null);
 		}
 		if(mp.getCategoryA().equals("G")){
 			nmp.setCategoryG("Y");
+		}else{
+			nmp.setCategoryG(null);
 		}
 		if(mp.getCategoryA().equals("H")){
 			nmp.setCategoryH("Y");
+		}else{
+			nmp.setCategoryH(null);
 		}
 		if(mp.getCategoryA().equals("I")){
 			nmp.setCategoryI("Y");
+		}else{
+			nmp.setCategoryI(null);
+		}
+		if(mp.getCategoryA().equals("J")){
+			nmp.setCategoryJ("Y");
+		}else{
+			nmp.setCategoryJ(null);
+		}
+		if(mp.getCategoryA().equals("K")){
+			nmp.setCategoryK("Y");
+		}else{
+			nmp.setCategoryK(null);
 		}
 	}
 	

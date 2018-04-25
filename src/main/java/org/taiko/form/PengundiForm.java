@@ -31,6 +31,8 @@ public class PengundiForm {
 	private String warning;
 	private String notify;
 	private String negeri;
+	private String pinKod;
+	private String methodName;
 	
 	
 	public String getNo_kp() {
@@ -206,6 +208,18 @@ public class PengundiForm {
 	}
 	public void setNegeri(String negeri) {
 		this.negeri = negeri;
+	}
+	public String getPinKod() {
+		return pinKod;
+	}
+	public void setPinKod(String pinKod) {
+		this.pinKod = pinKod;
+	}
+	public String getMethodName() {
+		return methodName;
+	}
+	public void setMethodName(String methodName) {
+		this.methodName = methodName;
 	}
 
 }

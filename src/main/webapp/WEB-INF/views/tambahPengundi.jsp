@@ -58,6 +58,7 @@
 	          <td>Kumpulan Umur :</td>    
 	           <td>
 	          	<form:select path="kumpUmur">
+	          	<form:option value="" label=""/>
           		<form:option value="21-29" label="21-29"/>
           		<form:option value="30-39" label="30-39"/>
           		<form:option value="40-49" label="40-49"/>
@@ -71,6 +72,7 @@
 	          <td>Kumpulan Kaum :</td>    
 	          <td>
 	          	<form:select path="kumpKaum">
+	          	<form:option value="" label=""/>
           		<form:option value="BUMIPUTRA SABAH" label="BUMIPUTRA SABAH"/>
           		<form:option value="BUMIPUTRA SARAWAK" label="BUMIPUTRA SARAWAK"/>
           		<form:option value="CINA" label="CINA"/>
