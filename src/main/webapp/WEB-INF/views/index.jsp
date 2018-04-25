@@ -26,7 +26,7 @@
 			         </tr>
 			         <tr>    
 			          <td><br></td>   
-			          	 <c:if test="${not sah}">
+			          	 <c:if test="${not sah && sah != null}">
 			          		<td style="color:red;"><c:out value="Pin kod yang dimasukkan tidak sah."></c:out> </td>
 			          	</c:if>
 			         </tr>

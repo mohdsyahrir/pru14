@@ -120,27 +120,11 @@ public class MirrorPengundiHome {
 		return mp;
 	}
 
-	public void save(MirrorPengundi mp) {
-		try {
-//			mirrorPengundiRepo.save(mp);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		
-		
-	}
-
+	@SuppressWarnings("unchecked")
 	public List<MirrorPengundi> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		entityManager = entityManagerFactory.createEntityManager();
+		Query query = entityManager.createQuery("from org.taiko.entity.MirrorPengundi", MirrorPengundi.class);
+		List<MirrorPengundi> list = query.getResultList();
+		return list;
 	}
-
-	/*public List<Pengundi> findAll() {
-		
-		 Query query = entityManager.createQuery("SELECT * FROM pengundi");
-		 
-		 List<Pengundi>
-		 
-		return 
-	}*/
 }

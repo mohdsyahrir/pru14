@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.taiko.dao.MirrorPengundiHome;
+import org.taiko.dao.PengundiDao;
 import org.taiko.dao.PengundiHome;
 import org.taiko.dao.PinKodHome;
 import org.taiko.entity.MirrorPengundi;
@@ -28,6 +30,7 @@ public class PengundiController {
 	@Autowired PengundiHome ph;
 	@Autowired private MirrorPengundiHome mph;
 	@Autowired private PinKodHome pkh;
+	@Autowired private PengundiDao pd;
 	
 	private static final Logger logger = LoggerFactory.getLogger(PengundiController.class);
 	
@@ -41,7 +44,6 @@ public class PengundiController {
 		form.setMethodName("menu");
 		model.addAttribute("pengundiForm", form);
 		model.addAttribute("pinKod", sesion.getAttribute("pinKod"));
-		model.addAttribute("sah", true);
 		logger.info((String) sesion.getAttribute("pinKod"));
 		return "index";
 	}
@@ -64,6 +66,8 @@ public class PengundiController {
 			return carianPengundi(model,sesion);
 		}else if(form.getMethodName().equals("tambah")){
 			return tambah(model,form);
+		}else if(form.getMethodName().equals("pengundi")){
+			return pengundi(form.getNo_kp_carian(),model);
 		}else{
 			return null;
 		}
@@ -84,12 +88,53 @@ public class PengundiController {
 	}
 	
 	@RequestMapping(value = "/senaraiPengundi",  method = RequestMethod.GET)
-	public String senaraiPengundi() {
-//		List<Pengundi> pengundiL =  ph.findAll();
-		List<MirrorPengundi> mpl = mph.findAll();
+	public String senaraiPengundi(Model model) {
+		//List<MirrorPengundi> mpl = mph.findAll();
+		//model.addAttribute("mpl", mpl);
 		logger.info("Page senarai Pengundi");
-		return "senaraiPengundi";
+		return senaraiPengundiByPage(1,model);
 	}
+	
+	@RequestMapping(value="/senaraiPengundi/{pageNo}")  
+    public String senaraiPengundiByPage(@PathVariable int pageNo,Model model){  
+        int total=50;  
+        model.addAttribute("pageNo", pageNo);
+        int lastPage =  pd.getLastPage();
+        int offset = pageNo-1;
+        List<MirrorPengundi> list = pd.getPengundiByPage(offset*total,total);  
+        model.addAttribute("mpl", list); 
+        model.addAttribute("lastPage", lastPage+1); 
+        return "senaraiPengundi";  
+    }  
+	
+	@RequestMapping(value="/pengundi/{noKp}")  
+    public String pengundi(@PathVariable String noKp,Model model){  
+		logger.info("cari pengundi");
+		 Pengundi p = ph.findById(noKp);
+		 MirrorPengundi mp = mph.findById(noKp);
+		 String c = "";
+		 PengundiForm form = new PengundiForm();
+		 form.setNo_kp_carian(noKp);
+		 form.setMethodName("pengundi");
+		 if(!(mp == null)){
+			 model.addAttribute("pengundi",mp);
+			 form.setWarning("Maklumat pengundi ini telah dikemaskini.");
+			 c = getKategoriMp(mp, c);
+			 form.setCategory(c);
+			 model.addAttribute("aCat",c.substring(9, 10)); 
+		 }else if(!(p == null)) {
+			 model.addAttribute("pengundi",p);
+			 c = getKategori(p, c);
+			 form.setCategory(c);
+			model.addAttribute("aCat",c.substring(9, 10)); 
+		 }else{
+			 form.setWarning("Data_null");
+		 }
+
+		model.addAttribute("pengundiForm",form);
+		model.addAttribute("mode","true");
+		return "pengundi";
+    }  
 	
 	@RequestMapping(value = "/cari",  method = RequestMethod.POST)
 	public String cari(Model model,@ModelAttribute("pengundiForm")PengundiForm form) {
@@ -105,13 +150,16 @@ public class PengundiController {
 			 form.setWarning("Maklumat pengundi ini telah dikemaskini.");
 			 c = getKategoriMp(mp, c);
 			 form.setCategory(c);
+			 model.addAttribute("aCat",c.substring(9, 10)); 
 		 }else if(!(p == null)) {
 			 model.addAttribute("pengundi",p);
 			 c = getKategori(p, c);
 			 form.setCategory(c);
+			model.addAttribute("aCat",c.substring(9, 10)); 
 		 }else{
 			 form.setWarning("Data_null");
 		 }
+
 		model.addAttribute("pengundiForm",form);
 		model.addAttribute("mode","true");
 		return "pengundi";
@@ -229,8 +277,9 @@ public class PengundiController {
 			 setMpCategory(form, mp);
 			 mph.persist(mp);
 		 }
-		 String c = getKategoriMp(mp, "");
-		 form.setCategory(c);
+		String c = getKategoriMp(mp, "");
+		form.setCategory(c);
+		model.addAttribute("aCat",c.substring(9, 10));
 		model.addAttribute("pengundiForm", form);
 		model.addAttribute("pengundi",mp);
 		model.addAttribute("mode","true");
@@ -251,6 +300,7 @@ public class PengundiController {
 			form.setWarning("Maklumat pengundi ini telah dikemaskini.");
 			String c = getKategoriMp(mp, "");
 		    form.setCategory(c);
+		    model.addAttribute("aCat",c.substring(9, 10));
 		    form.setNo_kp_carian(mp.getNoKp());
 			model.addAttribute("pengundiForm", form);
 			model.addAttribute("save","true");

@@ -20,12 +20,13 @@
 			         </tr>
 			         <tr>    
 			          <td><br></td>    
-						 <td><input type="submit" value="Sahkan" formaction="pengesahan"/></td>
+						 <td><input type="submit" value="Sahkan" formmethod="post" formaction="<%=request.getContextPath() %>/pengesahan"/></td>
 						 <td><form:hidden path="methodName" /></td>
+						 <td><form:hidden path="no_kp_carian" /></td>
 			         </tr>
 			         <tr>    
 			          <td><br></td>   
-			          	 <c:if test="${not sah}">
+			          	 <c:if test="${not sah && sah != null}">
 			          		<td style="color:red;"><c:out value="Pin kod yang dimasukkan tidak sah."></c:out> </td>
 			          	</c:if>
 			         </tr>
@@ -55,7 +56,7 @@
 	          	</c:when>
 	          	<c:when test="${pengundiForm.warning == 'Data_null'}">
 	          		<td style="color:red;"><c:out value="Maklumat pengundi ini tiada dalam pengkalan data."></c:out> </td>
-	          		<td><input type="submit" formaction="tambah" value="Tambah" /></td>
+	          		<td><input type="submit" formaction="<%=request.getContextPath() %>/tambah" value="Tambah" /></td>
 	          	</c:when>
 	          	<c:otherwise>
 	          		<td style="color:red;"><form:label path="warning"/><c:out value="${pengundiForm.warning}"></c:out> </td>
@@ -183,10 +184,12 @@
 	          <td><br></td>    
 	          <c:choose>
 				<c:when test="${mode}">
-					 <td><input type="submit"  formaction="kemaskini"  value="Kemaskini" /></td>
+				    <c:if test="${aCat != 'A'}">
+					 <td><input type="submit"  formaction="<%=request.getContextPath() %>/kemaskini"  value="Kemaskini" /></td>
+					 </c:if>
 				</c:when>
 				<c:otherwise>
-					 <td><input type="submit" formaction="save"  value="Simpan" /></td>
+					 <td><input type="submit" formaction="<%=request.getContextPath() %>/save"  value="Simpan" /></td>
 				</c:otherwise>
 			 </c:choose>
 	         </tr>   
@@ -217,7 +220,6 @@ function validate1(){
 		 text ="";
 		 x.style.display = "none";
 	 }
-// 	document.getElementById("msg2p").innerHTML = text;
 }
 
 </script>

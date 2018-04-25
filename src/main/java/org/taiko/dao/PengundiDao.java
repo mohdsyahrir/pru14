@@ -1,15 +1,18 @@
 package org.taiko.dao;
 
-import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.taiko.entity.MirrorPengundi;
 import org.taiko.form.PengundiForm;
 
 public class PengundiDao {
 	
 	JdbcTemplate template; 
-	private DataSource dataSource;
 
 	
 	public void setTemplate(JdbcTemplate template) {  
@@ -49,6 +52,23 @@ public class PengundiDao {
 		
 
 		
+	}  
+	
+	public List<MirrorPengundi> getPengundiByPage(int pageid,int total){  
+	    String sql="select * from mirror_pengundi order by nama offset "+(pageid)+" limit "+total;  
+	    return template.query(sql,new RowMapper<MirrorPengundi>(){  
+	        public MirrorPengundi mapRow(ResultSet rs, int row) throws SQLException {  
+	        	MirrorPengundi mp = new MirrorPengundi(); 
+	        	mp.setNoKp(rs.getString(1));
+	        	mp.setNama(rs.getString(2));
+	            return mp;  
+	        }  
+	    });  
+	}
+
+	public int getLastPage() {
+		String sql="select count(no_kp)/50 from mirror_pengundi";  
+	    return template.queryForInt(sql);
 	}  
 
 }
