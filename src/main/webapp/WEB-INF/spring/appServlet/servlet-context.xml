@@ -8,9 +8,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="org.taiko.controller" />
-	<context:component-scan base-package="org.taiko.service" />
-	<context:component-scan base-package="org.taiko.repository" />
 	<context:component-scan base-package="org.taiko.dao" />
+	<context:component-scan base-package="org.taiko.entity" />
      
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
