@@ -1,9 +1,9 @@
 package org.taiko.dao;
 // Generated Apr 25, 2018 12:39:29 AM by Hibernate Tools 5.1.0.Alpha1
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
