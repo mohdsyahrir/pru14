@@ -429,6 +429,7 @@ public class PengundiController {
 		negeriL.add("SARAWAK");
 		negeriL.add("SELANGOR");
 		negeriL.add("TERENGGANU");
+		negeriL.add("SINGAPURA");
 		return negeriL;
 		}
 	}
